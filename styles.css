@@ -1,0 +1,155 @@
+body {
+    --whatsapp-green: #009788;
+    --message-green: #dcf8c6;
+    --lightgray: #dbdbdb;
+    --banner-gray: #eeeeee;
+    --list-active-gray: #e9ebea;
+    --beige: #e5dcd5;
+    background-color: var(--lightgray);
+    font-size: 14px;
+}
+
+main {
+    height: calc( 100vh - 30px);
+    margin: auto;
+}
+
+.green-line {
+    background-color: var(--whatsapp-green);
+    height: 130px;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: -1;
+}
+
+.container {
+    background-color: #ffffff;
+}
+
+.whatsapp-element {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1em;
+    background-color: var(--banner-gray);
+}
+
+.list-group-item {
+    border-radius: 0 !important;
+    border-right: 0;
+    border-left: 0;
+    border-color: var(--list-active-gray);
+}
+
+.whatsapp-element.list-group-item {
+    background-color: #ffffff;
+}
+
+.list-group-item.active {
+    color: #000000;
+    background-color: var(--list-active-gray);
+    border-color: var(--list-active-gray);
+}
+
+.img-title-element {
+    display: flex;
+}
+
+.icon-list {
+    display: flex;
+    align-items: center;
+}
+
+.chatroom {
+    background-color: var(--beige);
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    justify-content: flex-end;
+    overflow-y: scroll;
+    min-height: 100px;
+}
+
+.message {
+    display: flex;
+    max-width: 80%;
+    position: relative;
+}
+
+.message > div{
+    background-color: var(--message-green);
+    border-radius: .5em;
+    margin: 1em 2em;
+    padding: 1em;
+}
+
+.message > div::before {
+    content: '';
+    width: 0px;
+    height: 0px;
+    transform: rotate(360deg);
+    border-style: solid;
+    border-width: 18px 18px 0 0;
+    border-color: #fff transparent transparent transparent;
+    position: absolute;
+    right: 14px;
+    top: 14px;
+}
+
+.message.out > div::before {
+    content:'';
+    transform: rotate(90deg);
+    border-color: #dcf8c6 transparent transparent transparent;
+    left: 13px;
+    right: initial;
+    top: 14px;
+}
+
+.message.in {
+    justify-content: flex-end;
+}
+
+.message.in > div {
+    background-color: #fff;
+}
+
+.time {
+    text-align: right;
+    font-size: .65em;
+}
+
+
+.list-group-item {
+    /* Chats sliden bei reload */
+    animation-name: slide-up;
+    animation-duration: 1s;
+    transition: 1s;
+}
+
+@keyframes slide-up {
+    0%   {margin-top: 100%;}
+    100% {margin-top: 0;}
+}
+
+.message {
+    /* Chats erscheinen bei reload */
+    animation-name: fade-in;
+    animation-duration: 2s;
+    transition: 2s;
+}
+
+@keyframes fade-in {
+    0%   {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+.chat_img {
+    border-radius: 50%;
+    margin: 10px;
+    max-height: 40px;
+}
+
+.list-group-item.new-message {
+    background-color: #5cb85c;
+}
