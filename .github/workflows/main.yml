@@ -3,7 +3,7 @@ name: Create File
 on:
   push:
     branches:
-      - main   # adjust as needed
+      - master   # adjust as needed
 
 jobs:
   create_file:
