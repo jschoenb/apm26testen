@@ -1,0 +1,21 @@
+name: Create File
+
+on:
+  push:
+    branches:
+      - master   # adjust as needed
+
+jobs:
+  create_file:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build and create file
+        run: |
+          echo "Building"
+          mkdir -p build
+          touch build/somefile.txt
+        
