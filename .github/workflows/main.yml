@@ -1,21 +1,42 @@
-name: Create File
+name: Build and Test
 
 on:
   push:
     branches:
-      - master   # adjust as needed
+      - master
 
 jobs:
   create_file:
     runs-on: ubuntu-latest
+    container: alpine
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Build and create file
+      - name: Create file
         run: |
           echo "Building"
-          mkdir -p build
+          mkdir build
           touch build/somefile.txt
-        
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-files
+          path: build/
+
+  test_file:
+    runs-on: ubuntu-latest
+    container: alpine
+    needs: create_file
+
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: build-files
+          path: build/
+
+      - name: Test if file exists
+        run: test -f build/somefile.txt
