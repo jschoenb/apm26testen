@@ -10,5 +10,13 @@ export default class Contact{
     addMessage(msg) {
         this.messages.push(msg);
     }
+
+    getUsername(){
+        return this.name;
+    }
+
+    setUsername(name){
+        this.name = name;
+    }
 }
 
