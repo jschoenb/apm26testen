@@ -1,4 +1,4 @@
-name: Run Jasmine Tests
+name: Test and Build
 
 on:
   push:
@@ -16,3 +16,18 @@ jobs:
       - run: npm install -g jasmine
       - run: jasmine init --esm
       - run: jasmine
+
+  build_artifacts:
+    runs-on: ubuntu-latest
+    container: node:18
+    needs: jasmine_tests
+
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          mkdir -p build
+          cp -r img js json styles.css index.html chat-bild.jpeg chat-img.jpeg group-img.jpeg build/
+      - uses: actions/upload-artifact@v4
+        with:
+          name: build
+          path: build/
