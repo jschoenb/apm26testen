@@ -1,0 +1,25 @@
+{
+  "name": "ue3test",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/jschoenb/apm26testen#readme",
+  "bugs": {
+    "url": "https://github.com/jschoenb/apm26testen/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jschoenb/apm26testen.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "jasmine-browser-runner runSpecs"
+  },
+  "devDependencies": {
+    "cypress": "^15.11.0",
+    "jasmine-browser-runner": "^4.0.0",
+    "jasmine-core": "^6.1.0"
+  }
+}
