@@ -15,7 +15,8 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "jasmine-browser-runner runSpecs"
+    "test": "jasmine-browser-runner runSpecs",
+    "cypress": "npx cypress run --headless"
   },
   "devDependencies": {
     "cypress": "^15.11.0",
