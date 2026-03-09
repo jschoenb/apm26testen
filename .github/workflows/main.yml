@@ -1,4 +1,4 @@
-name: Build and Test
+name: Run Jasmine Tests
 
 on:
   push:
@@ -6,37 +6,13 @@ on:
       - master
 
 jobs:
-  create_file:
+  jasmine_tests:
     runs-on: ubuntu-latest
-    container: alpine
+    container: node:18
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Create file
-        run: |
-          echo "Building"
-          mkdir build
-          touch build/somefile.txt
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-files
-          path: build/
-
-  test_file:
-    runs-on: ubuntu-latest
-    container: alpine
-    needs: create_file
-
-    steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: build-files
-          path: build/
-
-      - name: Test if file exists
-        run: test -f build/somefile.txt
+      - uses: actions/checkout@v4
+      - run: npm install
+      - run: npm install -g jasmine
+      - run: jasmine init --esm
+      - run: jasmine
