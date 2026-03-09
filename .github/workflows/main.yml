@@ -1,4 +1,4 @@
-name: Test and Build
+name: Test, Build and Deploy
 
 on:
   push:
@@ -31,3 +31,29 @@ jobs:
         with:
           name: build
           path: build/
+
+  deploy_app:
+    runs-on: ubuntu-latest
+    container: node:18-alpine
+    needs: build_artifacts
+
+    env:
+      SSH_USER: ${{ secrets.SSH_USER }}
+      SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
+      HETZNER_SERVER: ${{ secrets.HETZNER_SERVER }}
+
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: build
+          path: build/
+
+      - run: apk add --no-cache openssh sshpass rsync
+
+      - run: |
+          sshpass -p "$SSH_PASSWORD" rsync -avz -e "ssh -p 222 -o StrictHostKeyChecking=no" \
+          build/ "$SSH_USER@$HETZNER_SERVER:/usr/home/gjnnlo/public_html/apm25/"
+
+      - run: |
+          sshpass -p "$SSH_PASSWORD" ssh -p 222 -o StrictHostKeyChecking=no \
+          "$SSH_USER@$HETZNER_SERVER" "cd /usr/home/gjnnlo/public_html/apm25/ || exit 1;"
